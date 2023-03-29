@@ -20,7 +20,7 @@ export const mainListItems = (
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        <ListItemText secondary="Dashboard" />
       </ListItemButton>    
     </Link>
 
@@ -29,7 +29,7 @@ export const mainListItems = (
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="Shopin" />
+        <ListItemText secondary="Shopin" />
       </ListItemButton>
     </Link>
 
@@ -38,7 +38,7 @@ export const mainListItems = (
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Students" />
+        <ListItemText secondary="Students" />
       </ListItemButton>
     </Link>
     
@@ -47,7 +47,7 @@ export const mainListItems = (
         <ListItemIcon>
           <AccountBalanceIcon />
         </ListItemIcon>
-        <ListItemText primary="Courses" />
+        <ListItemText secondary="Courses" />
       </ListItemButton>
     </Link>
 
@@ -56,7 +56,7 @@ export const mainListItems = (
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Teachers" />
+        <ListItemText secondary="Teachers" />
       </ListItemButton>
     </Link>
 
@@ -64,28 +64,4 @@ export const mainListItems = (
   </React.Fragment>
 );
 
-export const secondaryListItems = (
-  <React.Fragment>
-    <ListSubheader component="div" inset>
-      Guardar reportes
-    </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Current month" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
-  </React.Fragment>
-);
+

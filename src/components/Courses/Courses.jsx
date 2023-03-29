@@ -73,7 +73,7 @@ export default function Courses() {
   // *******************************************************************
   return (
     <React.Fragment>
-      <Title>Lista de cursos</Title>
+      <Typography ariant="h1" gutterBottom sx={{m:'auto', fontSize:'40px'}}>Lista de curos</Typography>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -84,8 +84,7 @@ export default function Courses() {
             <TableCell>Duration</TableCell>
             <TableCell>Price</TableCell>
             <TableCell>Teacher</TableCell>
-            <TableCell>Delete</TableCell>
-            <TableCell>Edit</TableCell>
+            <TableCell>Details</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -99,23 +98,14 @@ export default function Courses() {
               <TableCell>{course.price}</TableCell>
               <TableCell>{course.teacher ? course.teacher.firstName :'Not asigned'}</TableCell>
               <TableCell>
-                <Button 
-                  variant="outlined" 
-                  color="error"
-                  size="small"
-                  >
-                  Delete
-                </Button>
-              </TableCell>
-              <TableCell>
                 <Link to={`/courses/edit/${course.id}`}>
-                <Button 
-                  variant="outlined" 
-                  color="error"
-                  size="small"
-                  >
-                  Edit
-                </Button>
+                  <Button 
+                    variant="outlined" 
+                    color="secondary"
+                    size="small"
+                    >
+                    Details
+                  </Button>
                 </Link>
               </TableCell>
             </TableRow>

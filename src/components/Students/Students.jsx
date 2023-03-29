@@ -9,6 +9,7 @@ import Title from "../Title/Title";
 import { getAllUsers } from "../../redux/store/slices/users/sliceUsers";
 import { useSelector, useDispatch } from "react-redux";
 import { Checkbox } from "@mui/material";
+import {Typography} from "@mui/material";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -29,7 +30,7 @@ const  {list} = useSelector(state=>state.userState)
 
   return (
     <React.Fragment>
-      <Title>Lista de estudiantes</Title>
+      <Typography ariant="h1" gutterBottom sx={{m:'auto', fontSize:'40px'}}>Lista de Estudiantes</Typography>
       <Table size="small">
         <TableHead>
           <TableRow>

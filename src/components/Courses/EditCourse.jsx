@@ -1,254 +1,97 @@
-import React, { useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Title from "../Title/Title";
-import { getAllCourses } from "../../redux/store/slices/courses/sliceCourse";
-import { useSelector, useDispatch } from "react-redux";
-import { Box, TextField, Button, Typography, FormControl, Select, InputLabel, MenuItem } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
-import { getCourseById } from "../../redux/store/slices/courses/sliceCourse";
-import { Link } from "react-router-dom";
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCourseById } from "../../redux/store/slices/courses/sliceCourse";
+import { useEffect } from "react";
+import { Box } from "@mui/material";
 
-const EditCourse = () => {
-    const dispatch = useDispatch();
-    const {id} = useParams()
-  // **********************************************************************
-  const [showForm, setShowForm] = useState(false);
-  function preventDefault(event) {
-    event.preventDefault();
-    setShowForm(!showForm);
-  }
-  // **********************************************************************
-  const [inputValues, setInputValues] = useState({
-    name: '',
-    tags: [],
-    level: '',
-    duration: 0,
-    price: '',
-    description:'',
-    videoSrc: '',
-    imageSrc: ''
-  });
-  const [inputTags, setInputTags] = useState({
-    tags : []
-  })
-  // **********************************************************************
-  const handleChange = (event) =>{
-    event.preventDefault()
-    const {name ,value} = event.target
-    setInputValues({
-      ...inputValues,
-      [name] : value
-    })
-  }
-  const handleChangeTags = (event)=>{
-    event.preventDefault()
-    const {name,value} = event.target
-    setInputTags({
-      [name] : [...inputTags.tags,value]
-    })
-  }
-  // *******************************************************************
-  const {authToken} = useSelector(state=>state.teacherState)
-//   const onSubmit = async(event) => {
-//     event.preventDefault()
-//     setInputValues({
-//       ...inputValues,
-//       tags : [...inputTags.tags]
-//     })
-//     dispatch(createNewCurse(inputValues,authToken))
-//   }
-//   useEffect(() => {
-//     dispatch(setCourseById(id,authToken));
-//   }, [dispatch, showForm]);
-//   const results  = useSelector((state) => state.courseState);
-  console.log(authToken)
+export default function MediaCard() {
+  const dispatch = useDispatch();
 
-  // *******************************************************************
+  const { id } = useParams();
+
+  const { authToken } = useSelector((state) => state.teacherState);
+  const { courseId } = useSelector((state) => state.courseState);
+
+  useEffect(() => {
+    dispatch(getCourseById(id, authToken));
+  }, [dispatch]);
+
   return (
-    <React.Fragment>
-      <Title>Lista de cursos</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Course</TableCell>
-            <TableCell>Tags</TableCell>
-            <TableCell>Level</TableCell>
-            <TableCell>Duration</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Teacher</TableCell>
-            <TableCell>Delete</TableCell>
-            <TableCell>Edit</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {results?.map((course) => (
-            <TableRow key={course.id}>
-              <TableCell>{course.id}</TableCell>
-              <TableCell>{course.name}</TableCell>
-              <TableCell>{course.tags[0]}</TableCell>
-              <TableCell>{course.level}</TableCell>
-              <TableCell>{course.duration}</TableCell>
-              <TableCell>{course.price}</TableCell>
-              <TableCell>{course.teacher ? course.teacher.firstName :'Not asigned'}</TableCell>
-              <TableCell>
-                <Button 
-                  variant="outlined" 
-                  color="error"
-                  size="small"
-                  >
-                  Delete
+    <>
+    <h1>Hola{id}</h1>
+      {courseId?.map((course) => {
+        return (
+          <Card
+            key={course.id}
+            sx={{ maxWidth: 945, display: "flex", flexWrap: "wrap" }}
+          >
+            <CardContent>
+              <CardMedia
+                sx={{ width: '30%',height: 140 }}
+                image={course.imageSrc}
+                title="course"
+              />
+              <Typography gutterBottom variant="h5" component="div">
+                Name : {course.name}{" "}
+                <Button color="secondary" variant="outlined" size="small">
+                  ...
                 </Button>
-              </TableCell>
-              <TableCell>
-                <Link to={`/courses/edit/${course.id}`}>
-                <Button 
-                  variant="outlined" 
-                  color="error"
-                  size="small"
-                  >
-                  Edit
+              </Typography>
+              <Typography gutterBottom variant="h5" component="div">
+                Duration : {course.duration}{" "}
+                <Button color="secondary" variant="outlined" size="small">
+                  ...
                 </Button>
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      {showForm && (
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div>
-          <TextField
-              error
-              id="standard-size-normal"
-              label="Name"
-              name="name"
-              value={inputValues.name}
-              onChange={handleChange}
-              defaultValue="Name"
-              variant="standard"
-              size="small"
-            />
-            <FormControl sx={{ width: '28%' }}>
-              <InputLabel id="demo-simple-select-label">Tags</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Tags"
-                onChange={handleChangeTags}
-                name='tags'
-              >
-                {
-                  ['Html','Javascript','Node','Css','Phyton'].map((tag,index)=>{
-                    return <MenuItem key={index} value={tag}>{tag}</MenuItem>
-
-                  })
-                }
-              </Select>
-          </FormControl>
-          </div>
-          <div>
-          <TextField
-              error
-              id="standard-error"
-              label="Level"
-              name='level'
-              value={inputValues.level}
-              onChange={handleChange}
-              defaultValue="Level"
-              variant="standard"
-              size="small"
-            />
-            <TextField
-              error
-              id="standard-error"
-              label="Duration"
-              name='duration'
-              value={inputValues.duration}
-              onChange={handleChange}
-              defaultValue="Duration"
-              variant="standard"
-              size="small"
-            />
-          </div>
-          <div>
-            <TextField
-              error
-              id="standard-error"
-              label="Price"
-              name='price'
-              value={inputValues.price}
-              onChange={handleChange}
-              defaultValue="Price"
-              variant="standard"
-              size="small"
-            />
-            <TextField
-              error
-              id="standard-error"
-              label="Description"
-              name='description'
-              value={inputValues.description}
-              onChange={handleChange}
-              defaultValue="Description"
-              variant="standard"
-              size="small"
-            />
-          </div>
-          <div>
-            <TextField
-              error
-              id="standard-error"
-              label="VideoSrc"
-              name='videoSrc'
-              value={inputValues.videoSrc}
-              onChange={handleChange}
-              defaultValue="VideoSrc"
-              variant="standard"
-              size="small"
-            />
-            <TextField
-              error
-              id="standard-error"
-              label="ImageSrc"
-              name='imageSrc'
-              value={inputValues.imageSrc}
-              onChange={handleChange}
-              defaultValue="ImageSrc"
-              variant="standard"
-              size="small"
-            />
-          </div>
-          <Button 
-            variant="contained" 
-            endIcon={<SendIcon />}
-            size='small'
-            sx={{mt:'1rem'}}
-            type='submit'
-            onClick={onSubmit}
-            >
-            Crear curso
-          </Button>
-        </Box>
-      )}
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        Agregar otro curso
-      </Link>
-    </React.Fragment>
-  )
+              </Typography>
+              <Typography gutterBottom variant="h5" component="div">
+                Level : {course.level}{" "}
+                <Button color="secondary" variant="outlined" size="small">
+                  ...
+                </Button>
+              </Typography>
+              <Typography gutterBottom variant="h5" component="div">
+                Price: {course.price}{" "}
+                <Button color="secondary" variant="outlined" size="small">
+                  ...
+                </Button>
+              </Typography>
+              <Typography color="text.secondary" paragraph>
+                Description :{course.description}{" "}
+                <Button color="secondary" variant="outlined" size="small">
+                  ...
+                </Button>
+              </Typography>
+              <Typography variant="h5" color="text.secondary">
+                Tags : {course.tags[0]}{" "}
+                <Button color="secondary" variant="outlined" size="small">
+                  ...
+                </Button>
+              </Typography>
+              <Typography variant="h5" color="text.secondary">
+                Teacher : {course.teacher.firstName}{" "}
+                <Button color="secondary" variant="outlined" size="small">
+                  ...
+                </Button>
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small" sx={{ bgcolor: "#ffff00", color: "white" }}>
+                Share
+              </Button>
+              <Button size="small" sx={{ bgcolor: "#ffff00", color: "white" }}>
+                Learn More
+              </Button>
+            </CardActions>
+          </Card>
+        );
+      })}
+    </>
+  );
 }
-
-export default EditCourse

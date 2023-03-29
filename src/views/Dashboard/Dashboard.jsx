@@ -1,5 +1,4 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MuiAppBar from "@mui/material/AppBar";
 import Badge from "@mui/material/Badge";
@@ -10,38 +9,24 @@ import Divider from "@mui/material/Divider";
 import MuiDrawer from "@mui/material/Drawer";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import Link from "@mui/material/Link";
 import List from "@mui/material/List";
 import Paper from "@mui/material/Paper";
-import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useLocation } from "react-router-dom";
-import Chart from "../../components/Chart/Chart";
-import Deposits from "./Deposits";
-import { mainListItems, secondaryListItems } from "./ListItems";
 import logoHenry from "../../assets/logoHenry.png";
-import henryFooter from "../../assets/henryFooter.png";
+import Courses from "../../components/Courses/Courses";
+import Shopin from "../../components/Shopin/Shopin";
+import Students from "../../components/Students/Students";
+import Teachers from "../../components/Teachers/Teachers";
+import { mainListItems } from "./ListItems";
+import EditCourse from "../../components/Courses/EditCourse";
+import { Route, Routes } from 'react-router-dom'
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from "react-router-dom";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Henry college
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-      <img src={henryFooter} alt="henryFooter" height="50px" />
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
 
@@ -89,20 +74,25 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// function DashboardContent() {
-//   const location = useLocation();
-//   const { pathname } = location;
-
 const Dashboard = () => {
+  const location = useLocation();
+  const navigate = useNavigate()
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const logout = (event) => {
+    event.preventDefault()
+    navigate("/")
+  }
+
   return (
+    
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed">
+      <AppBar position="absolute">
         <Toolbar
           sx={{
             pr: "40px", // keep right padding when drawer closed
@@ -125,22 +115,22 @@ const Dashboard = () => {
           >
             Henry college Dashboard
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+          <IconButton color="inherit" onClick={logout}>
+            {/* <Badge badgeContent={4} color="secondary">
+            </Badge> */}
+            <LogoutIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
 
-      <Drawer variant="permanent" open={open}>
+      <Drawer sx={{ml:"6rem"}} variant="permanent" open={open}>
         <Toolbar
           sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
             px: [1],
-            mt: "2rem",
+            mt: "4rem",
           }}
         >
           <IconButton onClick={toggleDrawer}>
@@ -148,11 +138,7 @@ const Dashboard = () => {
           </IconButton>
         </Toolbar>
         <Divider />
-        <List component="nav">
-          {mainListItems}
-          <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
-        </List>
+        <List component="nav">{mainListItems}</List>
       </Drawer>
       <Box
         component="main"
@@ -169,33 +155,75 @@ const Dashboard = () => {
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: 240,
-                }}
-              >
-                <Chart />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                  height: 240,
-                }}
-              >
-                <Deposits />
-              </Paper>
-            </Grid>
+            <Routes>
+              <Route exact path='/dashboard' element={<Dashboard/>}/>
+              <Route exact path='/students' element={<Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    width: "100vh",
+                  }}
+                >
+                  <Students />
+                </Paper>
+              </Grid>}/>
+              <Route exact path='/teachers' element={<Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    width: "100vh",
+                  }}
+                >
+                  <Teachers />
+                </Paper>
+              </Grid>}/>
+              <Route exact path='/courses' element={<Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    width: "100vh",
+                  }}
+                >
+                  <Courses />
+                </Paper>
+              </Grid>}/>
+              <Route exact path='/courses/edit/:id' element={<Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    width: "100vh",
+                  }}
+                >
+                  <EditCourse />
+                </Paper>
+              </Grid>}/>
+              <Route exact path='/shopin' element={<Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    width: "100vh",
+                  }}
+                >
+                  <Shopin />
+                </Paper>
+              </Grid>}/>
+            </Routes>
           </Grid>
-
-          <Copyright sx={{ pt: 4 }} />
         </Container>
       </Box>
     </Box>
@@ -203,5 +231,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-//   return <DashboardContent />;
-// }

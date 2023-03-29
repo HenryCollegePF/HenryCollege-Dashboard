@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllTeachers } from "../../redux/store/slices/teachers/sliceTeacher";
 import { Avatar } from "@mui/material";
 import { postNewTeacher } from "../../redux/store/slices/teachers/sliceTeacher";
+import {Typography} from "@mui/material";
 
 
 export default function Students() {
@@ -54,7 +55,7 @@ useEffect(()=>{
 const results = useSelector(state=>state.teacherState.list)
   return (
     <React.Fragment>
-      <Title>Lista de profesores</Title>
+      <Typography ariant="h1" gutterBottom sx={{m:'auto', fontSize:'40px'}}>Lista de profesores</Typography>
       <Table size="small">
         <TableHead>
           <TableRow>
