@@ -1,37 +1,34 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Title from "../Title/Title";
-import { getAllUsers } from "../../redux/store/slices/users/sliceUsers";
+import { getAllUsers,deleteStudent } from "../../redux/store/slices/users/sliceUsers";
 import { useSelector, useDispatch } from "react-redux";
-import { Checkbox } from "@mui/material";
-import {Typography} from "@mui/material";
+import { Button, Checkbox } from "@mui/material";
+import { Typography } from "@mui/material";
 
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 export default function Students() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const {authToken} = useSelector(state=>state.teacherState)
+  const { authToken } = useSelector((state) => state.teacherState);
 
+  const { list } = useSelector((state) => state.userState);
 
   useEffect(() => {
     dispatch(getAllUsers(authToken));
-  }, [dispatch]);
-
-const  {list} = useSelector(state=>state.userState)
+  }, [dispatch, list]);
 
 
   return (
-    <React.Fragment>
-      <Typography ariant="h1" gutterBottom sx={{m:'auto', fontSize:'40px'}}>Lista de Estudiantes</Typography>
-      <Table size="small">
+    <>
+      <Typography ariant="h1" gutterBottom sx={{ m: "auto", fontSize: "40px" }}>
+        Lista estudiantes
+      </Typography>
+      <Table size="small" sx={{ mt: "3rem" }}>
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
@@ -39,7 +36,8 @@ const  {list} = useSelector(state=>state.userState)
             <TableCell>Apellido</TableCell>
             <TableCell>Correo</TableCell>
             <TableCell>Telefono</TableCell>
-            <TableCell align="right">Activo</TableCell>
+            <TableCell></TableCell>
+            <TableCell>Activo</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -50,14 +48,28 @@ const  {list} = useSelector(state=>state.userState)
               <TableCell>{user.lastName}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.phone}</TableCell>
-              <TableCell align="right"><Checkbox defaultChecked /></TableCell>
+              <TableCell>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  sx={{ color: "black" }}
+                  onClick={() => dispatch(deleteStudent(user.id, authToken))}
+                >
+                  Eliminar
+                </Button>
+              </TableCell>
+              <TableCell>
+                {user.active == true ? (
+                  <Checkbox disabled checked />
+                ) : (
+                  <Checkbox disabled />
+                )}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        Ver todos los estudiantes
-      </Link>
-    </React.Fragment>
+    </>
   );
 }

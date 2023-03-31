@@ -1,20 +1,16 @@
-import React, { useEffect } from "react";
+import PublishRoundedIcon from '@mui/icons-material/PublishRounded';
+import SendIcon from "@mui/icons-material/Send";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Title from "../Title/Title";
-import { getAllCourses } from "../../redux/store/slices/courses/sliceCourse";
-import { useSelector, useDispatch } from "react-redux";
-import { Box, TextField, Button, Typography, FormControl, Select, InputLabel, MenuItem } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
-import List from "@mui/material/List";
-import axios from "axios";
-import { setAuthToken } from "../../utils/auth";
-import { createNewCurse } from "../../redux/store/slices/courses/sliceCourse";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { createNewCurse, getAllCourses } from "../../redux/store/slices/courses/sliceCourse";
+
 
 export default function Courses() {
 
@@ -22,7 +18,7 @@ export default function Courses() {
 
   // **********************************************************************
   const [showForm, setShowForm] = useState(false);
-  function preventDefault(event) {
+  const handlerShowForm = (event) => {
     event.preventDefault();
     setShowForm(!showForm);
   }
@@ -66,15 +62,15 @@ export default function Courses() {
     })
     dispatch(createNewCurse(inputValues,authToken))
   }
+  const {list}  = useSelector((state) => state.courseState);
   useEffect(() => {
     dispatch(getAllCourses(authToken));
   }, [dispatch, showForm]);
-  const {results}  = useSelector((state) => state.courseState.list);
   // *******************************************************************
   return (
     <React.Fragment>
-      <Typography ariant="h1" gutterBottom sx={{m:'auto', fontSize:'40px'}}>Lista de curos</Typography>
-      <Table size="small">
+      <Typography ariant="h1" gutterBottom sx={{m:'auto', fontSize:'40px'}}>Lista cursos</Typography>
+      <Table size="small" sx={{mt:'3rem'}}>
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
@@ -88,7 +84,7 @@ export default function Courses() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {results?.map((course) => (
+          {list?.map((course) => (
             <TableRow key={course.id}>
               <TableCell>{course.id}</TableCell>
               <TableCell>{course.name}</TableCell>
@@ -98,11 +94,12 @@ export default function Courses() {
               <TableCell>{course.price}</TableCell>
               <TableCell>{course.teacher ? course.teacher.firstName :'Not asigned'}</TableCell>
               <TableCell>
-                <Link to={`/courses/edit/${course.id}`}>
+                <Link to={`/courses/detail/${course.id}`}>
                   <Button 
-                    variant="outlined" 
-                    color="secondary"
+                    variant="contained" 
+                    color="primary"
                     size="small"
+                    sx={{color:'black'}}
                     >
                     Details
                   </Button>
@@ -116,24 +113,62 @@ export default function Courses() {
         <Box
           component="form"
           sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
+            "& .MuiTextField-root": { m: 1, width: "25ch",mt:'2rem',ml:'8%'},
           }}
           noValidate
           autoComplete="off"
         >
           <div>
           <TextField
-              error
-              id="standard-size-normal"
+           color="secondary"
+              id="outlined-basic"
               label="Name"
               name="name"
               value={inputValues.name}
               onChange={handleChange}
               defaultValue="Name"
-              variant="standard"
+              variant="outlined"
               size="small"
             />
-            <FormControl sx={{ width: '28%' }}>
+            <TextField
+             color="secondary"
+              id="outlined-basic"
+              label="Price"
+              name='price'
+              value={inputValues.price}
+              onChange={handleChange}
+              defaultValue="Price"
+              variant="outlined"
+              size="small"
+            />
+            
+          </div>
+          <div>
+          <TextField
+          color="secondary"
+              id="outlined-basic"
+              label="Level"
+              name='level'
+              value={inputValues.level}
+              onChange={handleChange}
+              defaultValue="Level"
+              variant="outlined"
+              size="small"
+            />
+            <TextField
+             color="secondary"
+              id="outline-basic"
+              label="Duration"
+              name='duration'
+              value={inputValues.duration}
+              onChange={handleChange}
+              defaultValue="Duration"
+              variant="outlined"
+              size="small"
+            />
+          </div>
+          <div>
+          <FormControl  color="secondary" sx={{ width: '76%', mt:'1.5rem', ml:'8%' }}>
               <InputLabel id="demo-simple-select-label">Tags</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -141,10 +176,11 @@ export default function Courses() {
                 label="Tags"
                 onChange={handleChangeTags}
                 name='tags'
+                color="secondary"
               >
                 {
                   ['Html','Javascript','Node','Css','Phyton'].map((tag,index)=>{
-                    return <MenuItem key={index} value={tag}>{tag}</MenuItem>
+                    return <MenuItem  key={index} value={tag}>{tag}</MenuItem>
 
                   })
                 }
@@ -152,74 +188,40 @@ export default function Courses() {
           </FormControl>
           </div>
           <div>
-          <TextField
-              error
-              id="standard-error"
-              label="Level"
-              name='level'
-              value={inputValues.level}
-              onChange={handleChange}
-              defaultValue="Level"
-              variant="standard"
-              size="small"
-            />
-            <TextField
-              error
-              id="standard-error"
-              label="Duration"
-              name='duration'
-              value={inputValues.duration}
-              onChange={handleChange}
-              defaultValue="Duration"
-              variant="standard"
-              size="small"
-            />
+              <TextField
+                 color="secondary"
+                id="outlined-multiline-static"
+                label="Description"
+                multiline
+                sx={{ width: '70px' }}
+                rows={4}
+                value={inputValues.description}
+                onChange={handleChange}
+                defaultValue="Description"
+                name='description'
+              />
           </div>
           <div>
             <TextField
-              error
-              id="standard-error"
-              label="Price"
-              name='price'
-              value={inputValues.price}
-              onChange={handleChange}
-              defaultValue="Price"
-              variant="standard"
-              size="small"
-            />
-            <TextField
-              error
-              id="standard-error"
-              label="Description"
-              name='description'
-              value={inputValues.description}
-              onChange={handleChange}
-              defaultValue="Description"
-              variant="standard"
-              size="small"
-            />
-          </div>
-          <div>
-            <TextField
-              error
-              id="standard-error"
+             color="secondary"
+              id="outline-basic"
               label="VideoSrc"
               name='videoSrc'
               value={inputValues.videoSrc}
               onChange={handleChange}
               defaultValue="VideoSrc"
-              variant="standard"
+              variant="outlined"
               size="small"
             />
             <TextField
-              error
-              id="standard-error"
+             color="secondary"
+              id="outline-basic"
               label="ImageSrc"
               name='imageSrc'
               value={inputValues.imageSrc}
               onChange={handleChange}
               defaultValue="ImageSrc"
-              variant="standard"
+              variant="outlined"
               size="small"
             />
           </div>
@@ -227,17 +229,20 @@ export default function Courses() {
             variant="contained" 
             endIcon={<SendIcon />}
             size='small'
-            sx={{mt:'1rem'}}
+            sx={{mt:'2rem',ml: '38%',color:'black'}}
             type='submit'
             onClick={onSubmit}
             >
-            Crear curso
+            New course
           </Button>
         </Box>
       )}
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        Agregar otro curso
-      </Link>
+        {
+          showForm ? 
+          <Button onClick={handlerShowForm} color="secondary" sx={{ m:'auto',mt:'2rem' }} variant="outlined"><PublishRoundedIcon/></Button> 
+          :
+          <Button onClick={handlerShowForm} color="secondary" sx={{ m:'auto',mt:'2rem' }} variant="outlined">Add Course</Button>
+        }
     </React.Fragment>
   );
 }

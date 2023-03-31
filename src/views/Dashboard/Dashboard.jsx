@@ -1,7 +1,6 @@
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MuiAppBar from "@mui/material/AppBar";
-import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,18 +14,14 @@ import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import logoHenry from "../../assets/logoHenry.png";
 import Courses from "../../components/Courses/Courses";
+import Details from "../../components/Courses/Details";
 import Shopin from "../../components/Shopin/Shopin";
 import Students from "../../components/Students/Students";
 import Teachers from "../../components/Teachers/Teachers";
 import { mainListItems } from "./ListItems";
-import EditCourse from "../../components/Courses/EditCourse";
-import { Route, Routes } from 'react-router-dom'
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from "react-router-dom";
-
 
 const drawerWidth = 240;
 
@@ -76,7 +71,7 @@ const Drawer = styled(MuiDrawer, {
 
 const Dashboard = () => {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -84,12 +79,11 @@ const Dashboard = () => {
   };
 
   const logout = (event) => {
-    event.preventDefault()
-    navigate("/")
-  }
+    event.preventDefault();
+    navigate("/");
+  };
 
   return (
-    
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="absolute">
@@ -109,13 +103,14 @@ const Dashboard = () => {
           <Typography
             component="h1"
             variant="h6"
-            color="inherit"
+            color="black"
             noWrap
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, ml:'2%' }}
           >
-            Henry college Dashboard
+            |  Henry college Dashboard
+           
           </Typography>
-          <IconButton color="inherit" onClick={logout}>
+          <IconButton color="secondary" onClick={logout}>
             {/* <Badge badgeContent={4} color="secondary">
             </Badge> */}
             <LogoutIcon />
@@ -123,7 +118,7 @@ const Dashboard = () => {
         </Toolbar>
       </AppBar>
 
-      <Drawer sx={{ml:"6rem"}} variant="permanent" open={open}>
+      <Drawer sx={{ ml: "6rem" }} variant="permanent" open={open}>
         <Toolbar
           sx={{
             display: "flex",
@@ -153,75 +148,105 @@ const Dashboard = () => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={3}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
+          <Grid container spacing={8}>
             <Routes>
-              <Route exact path='/dashboard' element={<Dashboard/>}/>
-              <Route exact path='/students' element={<Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    width: "100vh",
-                  }}
-                >
-                  <Students />
-                </Paper>
-              </Grid>}/>
-              <Route exact path='/teachers' element={<Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    width: "100vh",
-                  }}
-                >
-                  <Teachers />
-                </Paper>
-              </Grid>}/>
-              <Route exact path='/courses' element={<Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    width: "100vh",
-                  }}
-                >
-                  <Courses />
-                </Paper>
-              </Grid>}/>
-              <Route exact path='/courses/edit/:id' element={<Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    width: "100vh",
-                  }}
-                >
-                  <EditCourse />
-                </Paper>
-              </Grid>}/>
-              <Route exact path='/shopin' element={<Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    width: "100vh",
-                  }}
-                >
-                  <Shopin />
-                </Paper>
-              </Grid>}/>
+              <Route exact path="/dashboard" element={<Dashboard />} />
+              <Route
+                exact
+                path="/students"
+                element={
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        width:"120vh"
+                      }}
+                    >
+                      <Students />
+                    </Paper>
+                  </Grid>
+                }
+              />
+              <Route
+                exact
+                path="/teachers"
+                element={
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        width: "120vh",
+                      }}
+                    >
+                      <Teachers />
+                    </Paper>
+                  </Grid>
+                }
+              />
+              <Route
+                exact
+                path="/courses"
+                element={
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        width: "110vh",
+                      }}
+                    >
+                      <Courses />
+                    </Paper>
+                  </Grid>
+                }
+              />
+              <Route
+                exact
+                path="/courses/detail/:id"
+                element={
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        width: "100vh",
+                      }}
+                    >
+                      <Details />
+                    </Paper>
+                  </Grid>
+                }
+              />
+              <Route
+                exact
+                path="/shopin"
+                element={
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        width: "100vh",
+                      }}
+                    >
+                      <Shopin />
+                    </Paper>
+                  </Grid>
+                }
+              />
             </Routes>
           </Grid>
         </Container>
