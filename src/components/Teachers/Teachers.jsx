@@ -118,10 +118,7 @@ export default function Students() {
               <TableCell>{teacher.email}</TableCell>
               <TableCell>{teacher.phone}</TableCell>
               <TableCell>
-                <Avatar
-                  alt="Remy Sharp"
-                  src="https://i.ytimg.com/vi/O5zJ2nDPgeU/maxresdefault.jpg"
-                />
+                 <Avatar src="/broken-image.jpg" />
               </TableCell>
               <TableCell>
                 <Button

@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import users from "./slices/users";
 import teachers from "./slices/teachers";
 import courses from "./slices/courses";
+import payments from "./slices/payments";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import persistReducer from "redux-persist/es/persistReducer";
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   userState: users,
   teacherState: teachers,
   courseState: courses,
+  paymentState: payments,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,21 +1,19 @@
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import AssignmentIcon from "@mui/icons-material/Assignment";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
+import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import * as React from "react";
-import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 
 
 export const mainListItems = (
   <React.Fragment>
 
-    <Link to={"/dashboard"}>
+    <Link to={"/statistics"}>
       <ListItemButton>
         <ListItemIcon>
           <DashboardIcon />
@@ -24,19 +22,19 @@ export const mainListItems = (
       </ListItemButton>    
     </Link>
 
-    <Link to={"/shopin"}>
+    <Link to={"/payments"}>
       <ListItemButton>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText secondary="Shopin" />
+        <ListItemText secondary="Payments" />
       </ListItemButton>
     </Link>
 
     <Link to={"/students"}>
       <ListItemButton>
         <ListItemIcon>
-          <PeopleIcon />
+          <LocalLibraryIcon />
         </ListItemIcon>
         <ListItemText secondary="Students" />
       </ListItemButton>

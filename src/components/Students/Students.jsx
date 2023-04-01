@@ -20,7 +20,8 @@ export default function Students() {
 
   useEffect(() => {
     dispatch(getAllUsers(authToken));
-  }, [dispatch, list]);
+  }, [dispatch]);
+
 
 
   return (
@@ -56,7 +57,7 @@ export default function Students() {
                   sx={{ color: "black" }}
                   onClick={() => dispatch(deleteStudent(user.id, authToken))}
                 >
-                  Eliminar
+                  Activar
                 </Button>
               </TableCell>
               <TableCell>

@@ -18,10 +18,12 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import logoHenry from "../../assets/logoHenry.png";
 import Courses from "../../components/Courses/Courses";
 import Details from "../../components/Courses/Details";
-import Shopin from "../../components/Shopin/Shopin";
+import Payments from "../../components/Payments/Payments";
 import Students from "../../components/Students/Students";
 import Teachers from "../../components/Teachers/Teachers";
 import { mainListItems } from "./ListItems";
+import PieGraphic from "../../components/Statistics/PieGraphic";
+import Datas from "../../components/Statistics/Datas";
 
 const drawerWidth = 240;
 
@@ -163,7 +165,7 @@ const Dashboard = () => {
                         display: "flex",
                         flexDirection: "column",
                         height: "100%",
-                        width:"120vh"
+                        width:"150vh"
                       }}
                     >
                       <Students />
@@ -230,7 +232,7 @@ const Dashboard = () => {
               />
               <Route
                 exact
-                path="/shopin"
+                path="/payments"
                 element={
                   <Grid item xs={12} md={8} lg={9}>
                     <Paper
@@ -242,7 +244,27 @@ const Dashboard = () => {
                         width: "100vh",
                       }}
                     >
-                      <Shopin />
+                      <Payments />
+                    </Paper>
+                  </Grid>
+                }
+              />
+              <Route
+                exact
+                path="/statistics"
+                element={
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        width: "100vh",
+                      }}
+                    >
+                      <Datas />
+                      <PieGraphic />
                     </Paper>
                   </Grid>
                 }

@@ -7,7 +7,7 @@ const URL = "http://localhost:3001";
 export const getAllCourses = (token) => {
   return async (dispatch) => {
     try {
-      let res = await axios.get(`${URL}/course/?page=allCourses`, {
+      let res = await axios.get(`${URL}/course/?page=all`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
