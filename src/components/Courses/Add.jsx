@@ -53,14 +53,14 @@ const Add = () => {
     });
   };
   // *******************************************************************
-  const { authToken } = useSelector((state) => state.teacherState);
+  const { token } = useSelector((state) => state.teacherState);
   const onSubmit = async (event) => {
     event.preventDefault();
     setInputValues({
       ...inputValues,
       tags: [...inputTags.tags],
     });
-    dispatch(createNewCurse(inputValues, authToken));
+    dispatch(createNewCurse(inputValues, token));
     navigate("/courses");
   };
   return (

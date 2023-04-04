@@ -34,8 +34,6 @@ export default function Login() {
     });
   };
 
-  const teacher = useSelector(state=>state.teacherState.authToken)
-  
   const onSubmit = async (event) => {
     event.preventDefault()
     dispatch(loginTeacher(inputs));

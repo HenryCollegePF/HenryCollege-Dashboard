@@ -14,12 +14,12 @@ import { Typography } from "@mui/material";
 export default function Students() {
   const dispatch = useDispatch();
 
-  const { authToken } = useSelector((state) => state.teacherState);
+  const { token } = useSelector((state) => state.teacherState);
 
   const { list } = useSelector((state) => state.studentState);
 
   useEffect(() => {
-    dispatch(allStudents(authToken));
+    dispatch(allStudents(token));
   }, [dispatch]);
 
 
@@ -55,12 +55,12 @@ export default function Students() {
                   size="small"
                   sx={{ color: "black" }}
                   onClick={()=>{
-                    dispatch(deleteStudent(user.id, authToken))
+                    dispatch(deleteStudent(user.id, token))
                     alert(`Se desactivo al estudiante ${user.firstName}` )
                     window.location.reload()
                   }}
                 >
-                  Banear
+                  {user.active ? "Banear" : "Activar"}
                 </Button>
               </TableCell>
               <TableCell>
