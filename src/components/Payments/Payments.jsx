@@ -18,8 +18,6 @@ export default function Shopin() {
     dispatch(getPayments());
   }, [dispatch]);
 
-  console.log(list)
-
   return (
     <>
       <Typography ariant="h1" gutterBottom sx={{ m: "auto", fontSize: "40px" }}>

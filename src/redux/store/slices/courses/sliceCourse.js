@@ -29,7 +29,7 @@ export const createNewCurse = (course, token) => {
       });
       alert("Se creo un nuevo curso");
     } catch (err) {
-      console.log("err_sliceCourse", err.message);
+      console.log(err);
     }
   };
 };

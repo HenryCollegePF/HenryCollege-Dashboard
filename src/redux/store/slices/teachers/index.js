@@ -4,18 +4,21 @@ export const teacherSlice = createSlice({
   name: "teacher",
   initialState: {
     list: [],
-    authToken: [],
+    token: [],
   },
   reducers: {
     setTeacherList: (state, action) => {
       state.list = action.payload;
     },
     setAuthToken: (state, action) => {
-      state.authToken = action.payload;
+      state.token = action.payload;
+    },
+    logout: (state, action) => {
+      state.token = null;
     },
   },
 });
 
-export const { setTeacherList, setAuthToken } = teacherSlice.actions;
+export const { setTeacherList, setAuthToken, logout } = teacherSlice.actions;
 
 export default teacherSlice.reducer;

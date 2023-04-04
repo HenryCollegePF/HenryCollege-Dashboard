@@ -1,11 +1,11 @@
 import axios from "axios";
-import { setUserList } from ".";
+import { setStudent } from ".";
 
 const URL = "http://localhost:3001";
 
 //Get users
 
-export const getAllUsers = (token) => {
+export const allStudents = (token) => {
   return async (dispatch) => {
     try {
       let res = await axios.get(`${URL}/students`, {
@@ -13,9 +13,9 @@ export const getAllUsers = (token) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      dispatch(setUserList(res.data));
+      dispatch(setStudent(res.data));
     } catch (error) {
-      console.log("err_sliceUser", error.message);
+      console.log(error.message);
     }
   };
 };

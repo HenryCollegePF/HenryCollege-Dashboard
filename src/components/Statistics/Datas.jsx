@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 
 const Datas = () => {
-    const student = useSelector(state=>state.userState.list)
+    const student = useSelector(state=>state.studentState.list)
     const course = useSelector(state=>state.courseState.list)
     const teacher = useSelector(state=>state.teacherState.list)
 

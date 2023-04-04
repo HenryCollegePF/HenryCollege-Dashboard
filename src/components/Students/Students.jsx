@@ -5,7 +5,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { getAllUsers,deleteStudent } from "../../redux/store/slices/users/sliceUsers";
+import { allStudents,deleteStudent } from "../../redux/store/slices/students/sliceStudent";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Checkbox } from "@mui/material";
 import { Typography } from "@mui/material";
@@ -16,12 +16,11 @@ export default function Students() {
 
   const { authToken } = useSelector((state) => state.teacherState);
 
-  const { list } = useSelector((state) => state.userState);
+  const { list } = useSelector((state) => state.studentState);
 
   useEffect(() => {
-    dispatch(getAllUsers(authToken));
+    dispatch(allStudents(authToken));
   }, [dispatch]);
-
 
 
   return (
@@ -55,9 +54,13 @@ export default function Students() {
                   color="primary"
                   size="small"
                   sx={{ color: "black" }}
-                  onClick={() => dispatch(deleteStudent(user.id, authToken))}
+                  onClick={()=>{
+                    dispatch(deleteStudent(user.id, authToken))
+                    alert(`Se desactivo al estudiante ${user.firstName}` )
+                    window.location.reload()
+                  }}
                 >
-                  Activar
+                  Banear
                 </Button>
               </TableCell>
               <TableCell>

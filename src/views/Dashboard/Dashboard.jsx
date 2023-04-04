@@ -24,6 +24,10 @@ import Teachers from "../../components/Teachers/Teachers";
 import { mainListItems } from "./ListItems";
 import PieGraphic from "../../components/Statistics/PieGraphic";
 import Datas from "../../components/Statistics/Datas";
+import FormTeacher from "../../components/FormTeacher/FormTeacher";
+import { useDispatch } from "react-redux";
+import { logoutTeacher } from "../../redux/store/slices/teachers/sliceTeacher";
+import Add from "../../components/Courses/Add";
 
 const drawerWidth = 240;
 
@@ -74,6 +78,7 @@ const Drawer = styled(MuiDrawer, {
 const Dashboard = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -82,6 +87,7 @@ const Dashboard = () => {
 
   const logout = (event) => {
     event.preventDefault();
+    dispatch(logoutTeacher())
     navigate("/");
   };
 
@@ -153,7 +159,6 @@ const Dashboard = () => {
         <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={8}>
             <Routes>
-              <Route exact path="/dashboard" element={<Dashboard />} />
               <Route
                 exact
                 path="/students"
@@ -184,7 +189,7 @@ const Dashboard = () => {
                         display: "flex",
                         flexDirection: "column",
                         height: "100%",
-                        width: "120vh",
+                        width: "130vh",
                       }}
                     >
                       <Teachers />
@@ -251,7 +256,7 @@ const Dashboard = () => {
               />
               <Route
                 exact
-                path="/statistics"
+                path="/dashboard"
                 element={
                   <Grid item xs={12} md={8} lg={9}>
                     <Paper
@@ -265,6 +270,44 @@ const Dashboard = () => {
                     >
                       <Datas />
                       <PieGraphic />
+                    </Paper>
+                  </Grid>
+                }
+              />
+              <Route
+                exact
+                path="/teacher/form"
+                element={
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        width: "100vh",
+                      }}
+                    >
+                      <FormTeacher />
+                    </Paper>
+                  </Grid>
+                }
+              />
+              <Route
+                exact
+                path="/courses/add"
+                element={
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        width: "100vh",
+                      }}
+                    >
+                      <Add />
                     </Paper>
                   </Grid>
                 }

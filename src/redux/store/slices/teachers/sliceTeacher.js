@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setTeacherList, setAuthToken } from ".";
+import { setTeacherList, setAuthToken, logout } from ".";
 
 const URL = "http://localhost:3001";
 
@@ -35,8 +35,8 @@ export const loginTeacher = (teacher) => {
     try {
       const { data } = await axios.post(`${URL}/teachers/login`, teacher);
       dispatch(setAuthToken(data.auth.access_token));
-    } catch (err) {
-      console.log("err_login", err);
+    } catch (error) {
+      console.log("err_login", error.message);
     }
   };
 };
@@ -54,4 +54,8 @@ export const deleteTeacher = (id, token) => {
       console.log("err_delete", err);
     }
   };
+};
+
+export const logoutTeacher = () => (dispatch) => {
+  return dispatch(logout());
 };

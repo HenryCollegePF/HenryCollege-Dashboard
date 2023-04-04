@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import users from "./slices/users";
+import students from "./slices/students";
 import teachers from "./slices/teachers";
 import courses from "./slices/courses";
 import payments from "./slices/payments";
@@ -11,11 +11,11 @@ import thunk from "redux-thunk";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["userState", "teacherState"],
+  whitelist: ["teacherState"],
 };
 
 export const rootReducer = combineReducers({
-  userState: users,
+  studentState: students,
   teacherState: teachers,
   courseState: courses,
   paymentState: payments,
