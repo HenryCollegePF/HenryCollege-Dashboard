@@ -1,17 +1,35 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Cell,Pie,PieChart } from 'recharts';
+import { allStudents } from '../../redux/store/slices/students/sliceStudent';
+import { getAllCourses } from '../../redux/store/slices/courses/sliceCourse';
+import { getAllTeachers } from '../../redux/store/slices/teachers/sliceTeacher';
 
-const data = [
-	{ name: "Group A", value: 600 },
-	{ name: "Group B", value: 300 },
-	{ name: "Group C", value: 300 },
-	{ name: "Group D", value: 200 }
-  ];
-  
-  const COLORS = ["#fff59d", "#90caf9", "#f3e5f5", "#ffab91"];
-  const COLORSDOS = ["black", "black", "black", "black"];
 
 const PieGraphic = () => {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(allStudents(token))
+    dispatch(getAllCourses(token))
+    dispatch(getAllTeachers(token))
+  },[dispatch])
+  const {token} = useSelector(state=>state.teacherState)
+  
+  const student = useSelector(state=>state.studentState.list)
+  const course = useSelector(state=>state.courseState.list)
+  const teacher = useSelector(state=>state.teacherState.list)
+  
+  const data = [
+    { name: "Teachers", value: teacher.length },
+    { name: "Estudents", value: student.length },
+    { name: "Courses", value: course.length },
+    { name: "Cupos", value: 10 }
+    ];
+    
+    const COLORS = ["#fff59d", "#90caf9", "#f3e5f5", "#ffab91"];
+    const COLORSDOS = ["black", "black", "black", "black"];
+    
 	return <PieChart width={500} height={400}>
       <Pie
         data={data}

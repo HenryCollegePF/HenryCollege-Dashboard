@@ -43,6 +43,7 @@ const Datas = () => {
   return (
 
     <>
+        <Typography sx={{ml:'30%', fontSize:'30px'}}>Estadisticas Generales</Typography>
         <Container maxWidth="sm" sx={{display:'flex', justifyContent:'center'}}>
             <Box sx={stilesBox}>
                 <PeopleIcon sx={stilesIcon}/>
