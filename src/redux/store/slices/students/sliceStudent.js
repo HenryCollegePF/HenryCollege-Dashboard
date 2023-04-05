@@ -15,7 +15,7 @@ export const allStudents = (token) => {
       });
       dispatch(setStudent(res.data));
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 };
@@ -28,7 +28,7 @@ export const deleteStudent = (id, token) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert(`"El estudiante con id ${id}, cambio su estado a inactivo" `);
+      alert(`"El estudiante con id/${id} cambio su estado" `);
     } catch (error) {
       console.log("err_delete", error.message);
     }

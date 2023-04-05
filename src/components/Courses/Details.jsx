@@ -19,17 +19,17 @@ export default function Details() {
 
   const { id } = useParams();
 
-  const { authToken } = useSelector((state) => state.teacherState);
+  const { token } = useSelector((state) => state.teacherState);
   const { courseId } = useSelector((state) => state.courseState);
 
   
   const handlerDelete = (event) =>{
     event.preventDefault()
-    dispatch(deleteCourse(id, authToken))
+    dispatch(deleteCourse(id, token))
     navigate("/courses")
   }
   useEffect(() => {
-    dispatch(getCourseById(id, authToken));
+    dispatch(getCourseById(id, token));
   }, [dispatch]);
 
   return (

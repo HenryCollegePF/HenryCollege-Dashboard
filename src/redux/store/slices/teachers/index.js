@@ -10,7 +10,7 @@ export const teacherSlice = createSlice({
     setTeacherList: (state, action) => {
       state.list = action.payload;
     },
-    setAuthToken: (state, action) => {
+    settoken: (state, action) => {
       state.token = action.payload;
     },
     logout: (state, action) => {
@@ -19,6 +19,6 @@ export const teacherSlice = createSlice({
   },
 });
 
-export const { setTeacherList, setAuthToken, logout } = teacherSlice.actions;
+export const { setTeacherList, settoken, logout } = teacherSlice.actions;
 
 export default teacherSlice.reducer;

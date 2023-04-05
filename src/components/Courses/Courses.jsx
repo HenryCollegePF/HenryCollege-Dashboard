@@ -18,11 +18,11 @@ export default function Courses() {
   const dispatch = useDispatch();
 
   
-  const {authToken} = useSelector(state=>state.teacherState)
+  const {token} = useSelector(state=>state.teacherState)
   
   const {list}  = useSelector((state) => state.courseState);
   useEffect(() => {
-    dispatch(getAllCourses(authToken));
+    dispatch(getAllCourses(token));
   }, [dispatch]);
   // *******************************************************************
   return (

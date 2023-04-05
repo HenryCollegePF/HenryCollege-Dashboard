@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setTeacherList, setAuthToken, logout } from ".";
+import { setTeacherList, settoken, logout } from ".";
 
 const URL = "http://localhost:3001";
 
@@ -34,7 +34,7 @@ export const loginTeacher = (teacher) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`${URL}/teachers/login`, teacher);
-      dispatch(setAuthToken(data.auth.access_token));
+      dispatch(settoken(data.auth.access_token));
     } catch (error) {
       console.log("err_login", error.message);
     }

@@ -13,15 +13,15 @@ import { Link } from "react-router-dom";
 
 const Teachers=()=> {
   const dispatch = useDispatch();
-  const { authToken } = useSelector((state) => state.teacherState);
+  const { token } = useSelector((state) => state.teacherState);
   const { list } = useSelector((state) => state.teacherState);
 
     
   useEffect(() => {
     if (!list || list.length === 0) {
-      dispatch(getAllTeachers(authToken));
+      dispatch(getAllTeachers(token));
     }
-  }, [ dispatch, authToken, list]);
+  }, [ dispatch, token, list]);
 
 
   return (
@@ -59,7 +59,7 @@ const Teachers=()=> {
                   color="primary"
                   size="small"
                   sx={{ color: "black" }}
-                  onClick={()=>dispatch(deleteTeacher(teacher.id,authToken))}
+                  onClick={()=>dispatch(deleteTeacher(teacher.id,token))}
                 >
                   Activar
                 </Button>

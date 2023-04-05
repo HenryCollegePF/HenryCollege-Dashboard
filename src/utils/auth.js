@@ -1,6 +1,6 @@
 const AUTH_TOKEN_ID = "auth-token";
 
-export const getAuthToken = () => {
+export const gettoken = () => {
   const token = localStorage.getItem(AUTH_TOKEN_ID);
 
   if (!token) {
@@ -10,6 +10,6 @@ export const getAuthToken = () => {
   return token;
 };
 
-export const setAuthToken = (token) => {
+export const settoken = (token) => {
   localStorage.setItem(AUTH_TOKEN_ID, token);
 };
