@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginTeacher } from "../../redux/store/slices/teachers/sliceTeacher";
 
@@ -37,19 +37,19 @@ export default function Login() {
   const onSubmit = async (event) => {
     event.preventDefault()
     dispatch(loginTeacher(inputs));
-    validate(inputs.email) ? navigate("/dashboard"):
-    alert("Este usuario no tiene acceso")
+    validate(inputs.email) ? navigate("/dashboard") :
+      alert("Este usuario no tiene acceso")
   };
 
-  const validate = (pass) =>{
+  const validate = (pass) => {
     let valid = /^[^@]+@henrycollege\.[^@]+$/
-    if(valid.test(pass)){
+    if (valid.test(pass)) {
       return true
-    }else{
+    } else {
       return false
     }
   }
-  
+
   console.log(validate(inputs.email))
 
   // *******Esto es de MUI para hacer visible la contraseña ***************
