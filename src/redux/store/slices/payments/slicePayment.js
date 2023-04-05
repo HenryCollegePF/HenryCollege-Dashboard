@@ -1,7 +1,8 @@
 import axios from "axios";
 import { setPay } from ".";
 
-const URL = "http://localhost:3001";
+const URL =
+  "https://henrycollege-back-end.onrender.com" || "http://localhost:3001";
 
 export const getPayments = () => {
   return async (dispatch) => {

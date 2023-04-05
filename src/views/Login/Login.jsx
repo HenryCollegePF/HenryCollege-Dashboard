@@ -13,13 +13,17 @@ import {
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginTeacher } from "../../redux/store/slices/teachers/sliceTeacher";
+import { getAllTeachers, loginTeacher } from "../../redux/store/slices/teachers/sliceTeacher";
+import { useEffect } from "react";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  
+  const teachers = useSelector(state=>state.teacherState.list)
 
   const [inputs, setInputs] = useState({
     email: "",
@@ -33,13 +37,24 @@ export default function Login() {
       [name]: value,
     });
   };
-
-  const onSubmit = async (event) => {
-    event.preventDefault()
+  const login = () =>{
     dispatch(loginTeacher(inputs));
-    validate(inputs.email) ? navigate("/dashboard") :
-      alert("Este usuario no tiene acceso")
+  }
+  const {token} = useSelector(state=>state.teacherState)
+
+  const onSubmit = () => {
+    token ? navigate("/dashboard") :
+    alert("El usuario no esta registrado")
   };
+
+  const handlerClick = () =>{
+    try {
+      login()
+    } catch (error) {
+      alert("El usuario no esta registrado")
+    }
+    onSubmit()
+  }
 
   const validate = (pass) => {
     let valid = /^[^@]+@henrycollege\.[^@]+$/
@@ -49,7 +64,6 @@ export default function Login() {
       return false
     }
   }
-
 
   // *******Esto es de MUI para hacer visible la contraseña ***************
   const [showPassword, setShowPassword] = React.useState(false);
@@ -134,7 +148,7 @@ export default function Login() {
         <Button
           variant="contained"
           type="submit"
-          onClick={onSubmit}
+          onClick={handlerClick}
           color="secondary"
           sx={{
             width: "44ch",

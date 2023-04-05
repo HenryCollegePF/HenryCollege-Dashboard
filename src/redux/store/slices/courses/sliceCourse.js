@@ -1,7 +1,9 @@
 import axios from "axios";
 import { setCourseList, setCourseById } from ".";
 
-const URL = "http://localhost:3001";
+const URL =
+  "https://henrycollege-back-end.onrender.com" || "http://localhost:3001";
+// "http://localhost:3001";
 //Get All Courses import.meta.env.VITE_BACK_URL ||
 
 export const getAllCourses = (token) => {

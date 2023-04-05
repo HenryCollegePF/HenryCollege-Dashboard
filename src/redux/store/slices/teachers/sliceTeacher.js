@@ -1,9 +1,8 @@
 import axios from "axios";
-import { setTeacherList, settoken, logout } from ".";
+import { setTeacherList, setToken, logout } from ".";
 
-const URL = "http://localhost:3001";
-
-// import.meta.env.VITE_BACK_URL ||
+const URL =
+  "https://henrycollege-back-end.onrender.com" || "http://localhost:3001";
 
 export const getAllTeachers = (token) => {
   return async (dispatch) => {
@@ -35,7 +34,7 @@ export const loginTeacher = (teacher) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(`${URL}/teachers/login`, teacher);
-      dispatch(settoken(data.auth.access_token));
+      dispatch(setToken(data.auth.access_token));
     } catch (error) {
       console.log("err_login", error.message);
     }

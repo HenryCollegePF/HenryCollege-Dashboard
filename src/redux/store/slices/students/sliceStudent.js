@@ -1,9 +1,8 @@
 import axios from "axios";
 import { setStudent } from ".";
 
-const URL = "http://localhost:3001";
-
-//Get users
+const URL =
+  "https://henrycollege-back-end.onrender.com" || "http://localhost:3001";
 
 export const allStudents = (token) => {
   return async (dispatch) => {
