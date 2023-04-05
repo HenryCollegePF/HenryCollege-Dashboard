@@ -16,14 +16,15 @@ const Teachers=()=> {
   const { token } = useSelector((state) => state.teacherState);
   const { list } = useSelector((state) => state.teacherState);
 
-    
+  const [shouldReload, setShouldReload] = useState(false);
+  
   useEffect(() => {
-    if (!list || list.length === 0) {
-      console.log(token)
+   
       dispatch(getAllTeachers(token));
-      dispatch(getAllTeachers(token));
-    }
-  }, [ dispatch, token, list]);
+      setShouldReload(false);
+  }, [ dispatch, token,shouldReload]);
+
+
 
 
   return (
@@ -61,7 +62,7 @@ const Teachers=()=> {
                   color="primary"
                   size="small"
                   sx={{ color: "black" }}
-                  onClick={()=>dispatch(deleteTeacher(teacher.id,token))}
+                  onClick={()=>{  setShouldReload(true);dispatch(deleteTeacher(teacher.id,token))}}
                 >
                   Activar
                 </Button>
