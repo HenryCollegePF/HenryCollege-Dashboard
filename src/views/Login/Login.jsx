@@ -2,12 +2,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   FormControl,
-  FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  Stack,
   Typography,
 } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -43,11 +41,7 @@ export default function Login() {
 
   const validate = (pass) => {
     let valid = /^[^@]+@henrycollege\.[^@]+$/
-    if (valid.test(pass)) {
-      return true
-    } else {
-      return false
-    }
+    return valid.test(pass)
   }
 
   console.log(validate(inputs.email))
