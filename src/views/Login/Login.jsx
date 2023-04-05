@@ -37,19 +37,19 @@ export default function Login() {
   const onSubmit = async (event) => {
     event.preventDefault()
     dispatch(loginTeacher(inputs));
-    validate(inputs.email) ? navigate("/dashboard"):
-    alert("Este usuario no tiene acceso")
+    validate(inputs.email) ? navigate("/dashboard") :
+      alert("Este usuario no tiene acceso")
   };
 
-  const validate = (pass) =>{
+  const validate = (pass) => {
     let valid = /^[^@]+@henrycollege\.[^@]+$/
-    if(valid.test(pass)){
+    if (valid.test(pass)) {
       return true
-    }else{
+    } else {
       return false
     }
   }
-  
+
   console.log(validate(inputs.email))
 
   // *******Esto es de MUI para hacer visible la contraseña ***************
