@@ -19,6 +19,8 @@ const Teachers=()=> {
     
   useEffect(() => {
     if (!list || list.length === 0) {
+      console.log(token)
+      dispatch(getAllTeachers(token));
       dispatch(getAllTeachers(token));
     }
   }, [ dispatch, token, list]);

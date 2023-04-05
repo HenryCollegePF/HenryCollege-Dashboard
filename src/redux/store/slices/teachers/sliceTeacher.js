@@ -30,6 +30,7 @@ export const postNewTeacher = (teacher) => {
     }
   };
 };
+
 export const loginTeacher = (teacher) => {
   return async (dispatch) => {
     try {
