@@ -31,6 +31,7 @@ export default function Details() {
     dispatch(getCourseById(id, token));
   }, [dispatch]);
 
+
   return (
     <Card key={course.id} sx={{ width: "100%" }}>
       <CardContent sx={{ display: "flex", flexWrap: "wrap" }}>
@@ -91,7 +92,7 @@ export default function Details() {
             color="text.secondary"
             sx={{ m: "auto" }}
           >
-            Tags : {course.tags.join(', ')}{" "}
+            Tags : { course.tags.join()}{" "}
           </Typography>
           <Typography
             variant="h5"

@@ -50,7 +50,6 @@ export default function Login() {
     }
   }
 
-  console.log(validate(inputs.email))
 
   // *******Esto es de MUI para hacer visible la contraseña ***************
   const [showPassword, setShowPassword] = React.useState(false);

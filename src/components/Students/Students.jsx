@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useState} from "react";
 import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -13,18 +13,17 @@ import { Typography } from "@mui/material";
 
 export default function Students() {
   const dispatch = useDispatch();
-
   const { token } = useSelector((state) => state.teacherState);
 
   const { list } = useSelector((state) => state.studentState);
+  const [shouldReload, setShouldReload] = useState(false);
+
+  useEffect(()=>{
+    dispatch(allStudents(token))
+    setShouldReload(false);
+  },[dispatch, token,shouldReload])
 
   
-
-  useEffect(() => {
-    dispatch(allStudents(token));
-  }, [dispatch]);
-
-
   return (
     <>
       <Typography ariant="h1" gutterBottom sx={{ m: "auto", fontSize: "40px" }}>
@@ -58,14 +57,15 @@ export default function Students() {
                   sx={{ color: "black" }}
                   onClick={()=>{
                     dispatch(deleteStudent(user.id, token))
-                    window.location.reload()
-                  }}
+                    setShouldReload(true);
+                  }
+                }
                 >
                   {user.active?"Desactivar":"Activar"}
                 </Button>
               </TableCell>
               <TableCell>
-                {user.active == true ? (
+                {user.active ? (
                   <Checkbox disabled checked />
                 ) : (
                   <Checkbox disabled />

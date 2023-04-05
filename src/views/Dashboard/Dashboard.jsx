@@ -208,7 +208,7 @@ const Dashboard = () => {
                         display: "flex",
                         flexDirection: "column",
                         height: "100%",
-                        width: "110vh",
+                        width: "130vh",
                       }}
                     >
                       <Courses />
@@ -227,7 +227,7 @@ const Dashboard = () => {
                         display: "flex",
                         flexDirection: "column",
                         height: "100%",
-                        width: "100vh",
+                        width: "120vh",
                       }}
                     >
                       <Details />
@@ -304,7 +304,7 @@ const Dashboard = () => {
                         display: "flex",
                         flexDirection: "column",
                         height: "100%",
-                        width: "100vh",
+                        width: "120vh",
                       }}
                     >
                       <Add />

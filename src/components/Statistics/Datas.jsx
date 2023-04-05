@@ -3,11 +3,24 @@ import React from 'react'
 import PeopleIcon from "@mui/icons-material/People";
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { allStudents } from '../../redux/store/slices/students/sliceStudent';
+import { getAllCourses } from '../../redux/store/slices/courses/sliceCourse';
+import { getAllTeachers } from '../../redux/store/slices/teachers/sliceTeacher';
 
 
 
 const Datas = () => {
+    const dispatch = useDispatch()
+    const {token} = useSelector(state=>state.teacherState)
+    
+    useEffect(()=>{
+        dispatch(allStudents(token))
+        dispatch(getAllCourses(token))
+        dispatch(getAllTeachers(token))
+    },[dispatch])
+
     const student = useSelector(state=>state.studentState.list)
     const course = useSelector(state=>state.courseState.list)
     const teacher = useSelector(state=>state.teacherState.list)
