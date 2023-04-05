@@ -34,11 +34,6 @@ export default function Login() {
     });
   };
 
-<<<<<<< HEAD
-  const teacher = useSelector(state=>state.teacherState.token)
-  
-=======
->>>>>>> 617e5cab73434310f3ce278775fd4ada933a2857
   const onSubmit = async (event) => {
     event.preventDefault()
     dispatch(loginTeacher(inputs));

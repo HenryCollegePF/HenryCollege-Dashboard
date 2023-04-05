@@ -20,11 +20,7 @@ export default function Details() {
   const { id } = useParams();
 
   const { token } = useSelector((state) => state.teacherState);
-<<<<<<< HEAD
-  const { courseId } = useSelector((state) => state.courseState);
-=======
   const { courseId: course } = useSelector((state) => state.courseState);
->>>>>>> 617e5cab73434310f3ce278775fd4ada933a2857
 
   const handlerDelete = (event) =>{
     event.preventDefault()
